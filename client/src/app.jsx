@@ -16,6 +16,7 @@ export function App() {
     sameSite: 'Strict',
     secure: false,
     httpOnly: false,
+    partitioned: false,
   })
 
   /**

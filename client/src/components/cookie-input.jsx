@@ -97,6 +97,16 @@ export function CookieInput({ cookie, setCookie }) {
             />
             HttpOnly
           </label>
+          <label>
+            <input
+              role="switch"
+              type="checkbox"
+              name="partitioned"
+              checked={Boolean(cookie.partitioned)}
+              onChange={handleCheckboxChange}
+            />
+            Partitioned
+          </label>
         </fieldset>
       </div>
     </section>

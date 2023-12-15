@@ -28,23 +28,28 @@ app.post('/cookies', (req, res) => {
   }
 })
 
+function getDeleteOptions({ name, value, expires, partitioned, ...options }) {
+  return {
+    partitioned: partitioned === 'true' ? partitioned : undefined,
+    ...options
+  }
+}
+
 app.delete('/cookies/last', (req, res) => {
   const cookies = req.cookies
-  const { name, value, expires, ...options } = req.query
 
   const cookieNames = Object.keys(cookies)
   const lastCookieName = cookieNames[cookieNames.length - 1]
 
-  res.status(202).clearCookie(lastCookieName, options).send('cookie deleted')
+  res.status(202).clearCookie(lastCookieName, getDeleteOptions(req.query)).send('cookie deleted')
 })
 
 app.delete('/cookies', (req, res) => {
   const { cookies } = req
-  const { name, value, expires, ...options } = req.query
 
   const cookieNames = Object.keys(cookies)
   console.log(cookieNames)
-  cookieNames.forEach(cookieName => res.clearCookie(cookieName, options))
+  cookieNames.forEach(cookieName => res.clearCookie(cookieName, getDeleteOptions(req.query)))
 
   res.send('all cookies deleted')
 })
