@@ -6,6 +6,7 @@ import { Buttons } from './components/buttons'
 
 import * as client from './utils/client.utils'
 import * as server from './utils/server.utils'
+import {backTLDPlusOne} from "./utils/config";
 
 export function App() {
   const [cookieInput, setCookieInput] = React.useState({
@@ -17,6 +18,7 @@ export function App() {
     secure: false,
     httpOnly: false,
     partitioned: false,
+    domain: backTLDPlusOne,
   })
 
   /**

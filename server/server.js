@@ -1,10 +1,15 @@
 import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import {frontHostName} from "./config.js";
 
 const app = express()
 
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }))
+app.use(cors({ origin: [
+    'http://localhost:3000', // If accessed directly
+    'https://' + frontHostName // If accessed through caddy
+  ], credentials: true
+}))
 app.use(express.json())
 app.use(cookieParser())
 
@@ -53,6 +58,13 @@ app.delete('/cookies', (req, res) => {
 
   res.send('all cookies deleted')
 })
+
+// Accessed via https://www.top-level.playground
+app.get('/*', (req, res) => res.send(
+    "<html>" +
+    "<iframe src='https://" + frontHostName + "'  style=\"position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%;\"></iframe>" +
+    "</html>"
+))
 
 app.listen(3333, () => {
   console.log('Server started on port 3333')

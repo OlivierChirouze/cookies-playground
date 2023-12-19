@@ -1,9 +1,10 @@
 import axiosBase from 'axios'
 
-import { parseCookies } from './common.utils'
+import {parseCookies} from './common.utils'
+import {backHostName} from "./config";
 
 const axios = axiosBase.create({
-  baseURL: 'http://localhost:3333',
+  baseURL: 'https://' + backHostName,
 })
 const prefix = 'server__'
 
