@@ -1,0 +1,40 @@
+{
+	auto_https disable_redirects
+}
+
+# Don't forget to tweak your hosts file to point to 127.0.0.1 for all these hostnames
+# Should look like:
+# 127.0.0.1 back.third-party.playground
+# 127.0.0.1 front.third-party.playground
+# 127.0.0.1 www.top-level.playground
+
+
+https://www.top-level.playground {
+	tls internal
+	# proxy to backend that will generate the top level page with iframe
+	reverse_proxy localhost:3333 {
+	}
+	log {
+		format console
+	}
+}
+
+https://front.third-party.playground {
+	tls internal
+	# proxy to frontend
+	reverse_proxy localhost:3000 {
+	}
+	log {
+		format console
+	}
+}
+
+https://back.third-party.playground {
+	tls internal
+	# proxy to backend
+	reverse_proxy localhost:3333 {
+	}
+	log {
+		format console
+	}
+}

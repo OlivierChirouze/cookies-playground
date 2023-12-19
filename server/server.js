@@ -1,14 +1,19 @@
 import express from 'express'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import {frontHostName} from "./config.js";
 
 const app = express()
 
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }))
+app.use(cors({ origin: [
+    'http://localhost:3000', // If accessed directly
+    'https://' + frontHostName // If accessed through caddy
+  ], credentials: true
+}))
 app.use(express.json())
 app.use(cookieParser())
 
-app.get('/cookies', (req, res) => {
+app.get('/*cookies', (req, res) => {
   res.send(req.cookies)
 })
 
@@ -52,6 +57,16 @@ app.delete('/cookies', (req, res) => {
   cookieNames.forEach(cookieName => res.clearCookie(cookieName, getDeleteOptions(req.query)))
 
   res.send('all cookies deleted')
+})
+
+// Accessed via https://www.top-level.playground/some/path
+app.get('/*', (req, res) => {
+  const path = req.originalUrl?.length > 0 ? req.originalUrl : '/'
+  return res.send(
+      "<html>" +
+      "<iframe src='https://" + frontHostName + path + "'  style=\"position:fixed; top:0; left:0; bottom:0; right:0; width:100%; height:100%;\"></iframe>" +
+      "</html>"
+  );
 })
 
 app.listen(3333, () => {

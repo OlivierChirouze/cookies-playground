@@ -42,6 +42,26 @@ The server is listening on port 3333:
 The app is running on port 3000:
 [http://localhost:3000](http://localhost:3000)
 
+You can also test cookies on sub-paths: http://localhost:3000/some/sub-path
+
+Cookies will be tested under this particular path (`/some/sub-path`).
+
+## Test https and 3d party cookies with iframes
+
+1. Edit your `/etc/hosts` or `C:\Windows\System32\Drivers\etc\hosts` file to link test hostnames to your local machine: 
+```shell
+127.0.0.1 back.third-party.playground
+127.0.0.1 front.third-party.playground
+127.0.0.1 www.top-level.playground
+```
+2. Make sure you have [Caddy](https://caddyserver.com/docs/install) installed
+3. Start Caddy
+```shell
+caddy run --config Caddyfile
+```
+4. Start server and client (see above)
+5. Access the frontend via https://www.top-level.playground or https://www.top-level.playground/some/path
+
 ## Create React App
 
 Client was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
