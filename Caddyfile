@@ -7,7 +7,17 @@
 # 127.0.0.1 back.third-party.playground
 # 127.0.0.1 front.third-party.playground
 # 127.0.0.1 www.top-level.playground
+# 127.0.0.1 www.top-top-level.playground
 
+https://www.top-top-level.playground {
+	tls internal
+	# proxy to backend that will generate the top level page with iframe
+	reverse_proxy localhost:3333 {
+	}
+	log {
+		format console
+	}
+}
 
 https://www.top-level.playground {
 	tls internal
