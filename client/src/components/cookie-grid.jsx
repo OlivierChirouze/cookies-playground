@@ -21,15 +21,20 @@ export function CookieGrid({
           </tr>
         </thead>
         <tbody>
-          {cookies.map((cookie, i) => (
-            <tr key={i}>
-              <th scope="row">{i + 1}</th>
-              <td>{cookie.name}</td>
-              <td>{cookie.value}</td>
-              {isServer && <td>{cookie.httpOnly}</td>}
-              {isServer && <td>{cookie.sameSite}</td>}
-            </tr>
-          ))}
+          {cookies.map((cookie, i) => {
+            let sliced = cookie.value.slice(0, 48);
+            if (sliced !== cookie.value)
+              sliced += '… (' + (cookie.value.length).toString() + ' chars total)'
+            return (
+                <tr key={i}>
+                  <th scope="row">{i + 1}</th>
+                  <td>{cookie.name}</td>
+                  <td>{sliced}</td>
+                  {isServer && <td>{cookie.httpOnly}</td>}
+                  {isServer && <td>{cookie.sameSite}</td>}
+                </tr>
+            )
+          })}
         </tbody>
       </table>
     </section>

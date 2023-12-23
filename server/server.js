@@ -21,9 +21,12 @@ app.post('/cookies', (req, res) => {
   try {
     const { name, value, expires, ...options } = req.body
 
+    // hack: value is supposed to be an integer that gives the cookie size in bytes
+    const valueOfSize = Array(parseInt(value)).fill('i').join('')
+
     res
       .status(202)
-      .cookie(name, value, {
+      .cookie(name, valueOfSize, {
         ...options,
         expires: new Date(expires),
       })
