@@ -2,7 +2,6 @@ export function CookieGrid({
   title,
   description,
   cookies = [],
-  isServer = false,
 }) {
   return (
     <section>
@@ -16,8 +15,6 @@ export function CookieGrid({
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Value</th>
-            {isServer && <th scope="col">Http Only</th>}
-            {isServer && <th scope="col">SameSite</th>}
           </tr>
         </thead>
         <tbody>
@@ -26,8 +23,6 @@ export function CookieGrid({
               <th scope="row">{i + 1}</th>
               <td>{cookie.name}</td>
               <td>{cookie.value}</td>
-              {isServer && <td>{cookie.httpOnly}</td>}
-              {isServer && <td>{cookie.sameSite}</td>}
             </tr>
           ))}
         </tbody>
