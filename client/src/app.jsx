@@ -64,6 +64,7 @@ export function App() {
             onCreate={() => client.createCookie(cookie)}
             onRemoveLast={client.removeLastCookie}
             onRemoveAll={client.removeAllCookies}
+            onRefresh={refresh}
             onClick={refresh}
           />
           <CookieGrid
@@ -80,6 +81,7 @@ export function App() {
             onCreate={() => server.createCookie(cookie)}
             onRemoveLast={() => server.removeLastCookie(options)}
             onRemoveAll={() => server.removeAllCookies(options)}
+            onRefresh={refresh}
             onClick={refresh}
           />
           <CookieGrid

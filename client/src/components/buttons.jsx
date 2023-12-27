@@ -6,6 +6,7 @@ export function Buttons({
   onCreate,
   onRemoveLast,
   onRemoveAll,
+  onRefresh,
   /**
    * Additional callback, which is called on each button click
    */
@@ -22,6 +23,7 @@ export function Buttons({
           ['Create one', 'success', onCreate],
           ['Remove last', 'warning', onRemoveLast],
           ['Remove all', 'danger', onRemoveAll],
+          ['Refresh', 'info', onRefresh],
         ].map(([label, className, callback]) => (
           <button
             key={label}
